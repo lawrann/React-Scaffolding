@@ -1,6 +1,7 @@
+install yarn here: https://classic.yarnpkg.com/en/docs/install/#windows-stable
 Run 
--yarn install // to install all dependencies
-	install yarn here: https://classic.yarnpkg.com/en/docs/install/#windows-stable
+
+-yarn install 
 -yarn start
 
 This project is for me to familiarize with ReactJS, Bootstrap, Firebase
