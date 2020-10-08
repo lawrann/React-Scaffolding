@@ -6,7 +6,7 @@ Run:
 
 `yarn start`
 
-(install yarn)[https://classic.yarnpkg.com/en/docs/install/#windows-stable]
+[install yarn](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
 
 This project is for me to practice with ReactJS, Bootstrap, Firebase
 
