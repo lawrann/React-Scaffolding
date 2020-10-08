@@ -3,7 +3,6 @@ import "./ProfilePage.css";
 import fire, { auth, db } from "../../fire";
 import { UserContext } from "../../UserContext";
 import { Redirect } from "react-router";
-import { FirebaseDatabaseNode } from "@react-firebase/database";
 
 const ProfilePage = () => {
   const [email, setEmail] = useState("");
@@ -11,27 +10,23 @@ const ProfilePage = () => {
   const [address, setAddress] = useState("");
   const [postal, setPostal] = useState("");
   const [mobile, setMobile] = useState("");
+  const [snap, setSnap] = useState(null);
   var userId = localStorage.getItem("userUID").replaceAll('"', "");
   var db_User_Uid_Path = "UserProfile/" + userId;
 
   useEffect(() => {
-    // Set singly
-    // db.ref(db_User_Uid_Path + "/Email")
-    //   .once("value")
-    //   .then((snapShot) => {
-    //     console.log(snapShot.val());
-    //   });
-
-    // Set at once
     console.log("time");
     db.ref(db_User_Uid_Path)
       .once("value")
       .then((snapShot) => {
-        setName(snapShot.val().Name);
-        setMobile(snapShot.val().Mobile);
-        setPostal(snapShot.val().Postal);
-        setAddress(snapShot.val().Address);
-        setEmail(snapShot.val().Email);
+        if (snapShot.val() != null) {
+          setSnap(snapShot.val());
+          // setName(snapShot.val().Name);
+          // setMobile(snapShot.val().Mobile);
+          // setPostal(snapShot.val().Postal);
+          // setAddress(snapShot.val().Address);
+          // setEmail(snapShot.val().Email);
+        }
       });
   });
 
@@ -51,7 +46,7 @@ const ProfilePage = () => {
                       className="form-control"
                       id="fullNameInput"
                       aria-describedby="fullNameHelp"
-                      value={name}
+                      value={snap ? snap.Name : ""}
                     />
                   </div>
                   <div className="form-group">
@@ -60,7 +55,7 @@ const ProfilePage = () => {
                       type="text"
                       className="form-control"
                       id="addressInput"
-                      value={address}
+                      value={snap ? snap.Address : ""}
                     />
                   </div>
                   <div className="form-group">
@@ -69,7 +64,7 @@ const ProfilePage = () => {
                       type="number"
                       className="form-control"
                       id="postalCodeInput"
-                      value={postal}
+                      value={snap ? snap.Postal : ""}
                     />
                   </div>
                   <div className="form-group">
@@ -78,7 +73,7 @@ const ProfilePage = () => {
                       type="number"
                       className="form-control"
                       id="mobileNumInput"
-                      value={mobile}
+                      value={snap ? snap.Mobile : ""}
                     />
                   </div>
                 </form>
