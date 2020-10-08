@@ -1,0 +1,12 @@
+div.about-us-container {
+  text-align: center;
+  margin: auto;
+  padding: auto;
+  width: 50%;
+}
+div.row {
+  text-align: center;
+  /* margin: 10px; */
+  padding: 40px 20px;
+  display: flex;
+}
