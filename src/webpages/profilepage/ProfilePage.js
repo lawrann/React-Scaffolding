@@ -5,14 +5,15 @@ import { UserContext } from "../../UserContext";
 import { Redirect } from "react-router";
 
 const ProfilePage = () => {
+  var userId = localStorage.getItem("userUID").replaceAll('"', "");
+  var db_User_Uid_Path = "UserProfile/" + userId;
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [postal, setPostal] = useState("");
   const [mobile, setMobile] = useState("");
   const [snap, setSnap] = useState(null);
-  var userId = localStorage.getItem("userUID").replaceAll('"', "");
-  var db_User_Uid_Path = "UserProfile/" + userId;
 
   useEffect(() => {
     console.log("time");
@@ -20,12 +21,14 @@ const ProfilePage = () => {
       .once("value")
       .then((snapShot) => {
         if (snapShot.val() != null) {
+          // can pass entire snap
           setSnap(snapShot.val());
-          // setName(snapShot.val().Name);
-          // setMobile(snapShot.val().Mobile);
-          // setPostal(snapShot.val().Postal);
-          // setAddress(snapShot.val().Address);
-          // setEmail(snapShot.val().Email);
+          // can pass individually
+          setName(snapShot.val().Name);
+          setMobile(snapShot.val().Mobile);
+          setPostal(snapShot.val().Postal);
+          setAddress(snapShot.val().Address);
+          setEmail(snapShot.val().Email);
         }
       });
   });
