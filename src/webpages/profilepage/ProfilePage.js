@@ -39,7 +39,7 @@ const ProfilePage = () => {
       console.log("cleanedup");
       mounted = false;
     };
-  });
+  }, [email]);
 
   return (
     <UserContext.Consumer>
