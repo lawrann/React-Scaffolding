@@ -6,7 +6,7 @@ export const UserContext = React.createContext({ user: null });
 
 class UserProvider extends React.Component {
   state = {
-    user: "",
+    user: null,
   };
   componentDidMount = () => {
     auth.onAuthStateChanged((userAuth) => {
