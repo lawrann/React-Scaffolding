@@ -16,9 +16,7 @@ const LoginPage = () => {
   return (
     <UserContext.Consumer>
       {({ state }) => {
-        if (state.user != null) {
-          return <Redirect to="/homepage" />;
-        } else {
+        if (state.user == null || state.user == "") {
           return (
             <React.Fragment>
               <div className="login-form">
@@ -66,6 +64,8 @@ const LoginPage = () => {
               </div>
             </React.Fragment>
           );
+        } else {
+          return <Redirect to="/homepage" />;
         }
       }}
     </UserContext.Consumer>

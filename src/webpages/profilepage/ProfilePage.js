@@ -8,6 +8,7 @@ const ProfilePage = () => {
   var userId = localStorage.getItem("userUID").replaceAll('"', "");
   var db_User_Uid_Path = "UserProfile/" + userId;
 
+  var mounted = true;
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -17,20 +18,27 @@ const ProfilePage = () => {
 
   useEffect(() => {
     console.log("time");
-    db.ref(db_User_Uid_Path)
-      .once("value")
-      .then((snapShot) => {
-        if (snapShot.val() != null) {
-          // can pass entire snap
-          setSnap(snapShot.val());
-          // can pass individually
-          setName(snapShot.val().Name);
-          setMobile(snapShot.val().Mobile);
-          setPostal(snapShot.val().Postal);
-          setAddress(snapShot.val().Address);
-          setEmail(snapShot.val().Email);
-        }
-      });
+
+    if (mounted) {
+      db.ref(db_User_Uid_Path)
+        .once("value")
+        .then((snapShot) => {
+          if (snapShot.val() != null) {
+            // can pass entire snap
+            setSnap(snapShot.val());
+            // can pass individually
+            // setName(snapShot.val().Name);
+            // setMobile(snapShot.val().Mobile);
+            // setPostal(snapShot.val().Postal);
+            // setAddress(snapShot.val().Address);
+            // setEmail(snapShot.val().Email);
+          }
+        });
+    }
+    return function cleanup() {
+      console.log("cleanedup");
+      mounted = false;
+    };
   });
 
   return (
@@ -88,6 +96,7 @@ const ProfilePage = () => {
             </React.Fragment>
           );
         } else {
+          console.log(state.user != "");
           return <Redirect to="/login" />;
         }
       }}
